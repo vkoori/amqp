@@ -2,11 +2,15 @@
 
 install
 
-`composer require koori/ampq`
+```shell
+composer require vkoori/amqp
+```
 
 generate config
 
-`php artisan vendor:publish --provider="Kooriv\MessageBroker\Providers\Config" --tag="config"`
+```shell
+php artisan vendor:publish --provider="Kooriv\MessageBroker\Providers\Config" --tag="config"
+```
 
 # Driver Supports:
 
