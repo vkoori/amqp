@@ -7,6 +7,7 @@ use Kooriv\MessageBroker\Enum\ExchangeType;
 return [
 
     'driver' => env('AMQP_DRIVER', 'sync'),
+    'events' => Consumers::class,
 
     'rabbitMQ' => [
         'connection_type' => Connections::STREAM,
@@ -26,7 +27,6 @@ return [
             'verify_peer' => env('RABBITMQ_SSL_VERIFY_PEER', true),
             'verify_peer_name' => env('RABBITMQ_SSL_PASSPHRASE', false),
         ],
-        'events' => Consumers::class,
     ],
     
     // if you want to publish failed jobs in to the message broker, use the `failed_jobs` key

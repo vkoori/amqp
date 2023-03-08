@@ -13,30 +13,35 @@ class Consumers implements \Iterator
 
 	private int $position = 0;
 
-	public function rewind(): void {
+	public function rewind(): void
+	{
 		$this->position = 0;
 	}
 
 	#[\ReturnTypeWillChange]
-	public function current() {
-		return $this->pubSub[$this->position];
+	public function current(): PubSub
+	{
+		return new $this->pubSub[$this->position];
 	}
 
 	#[\ReturnTypeWillChange]
-	public function key() {
+	public function key()
+	{
 		return $this->position;
 	}
 
-	public function next(): void {
+	public function next(): void
+	{
 		++$this->position;
 	}
 
-	public function valid(): bool {
+	public function valid(): bool
+	{
 		$valid = isset($this->pubSub[$this->position]);
 
 		if (
 			$valid
-			&& !$this->pubSub[$this->position] instanceof PubSub
+			&& !is_subclass_of(object_or_class: $this->pubSub[$this->position], class: PubSub::class)
 		) {
 			throw new InvalidConsumer("Pub/Sub is not valid. The Pub/Sub class must be an instance of ".PubSub::class);
 		}
