@@ -8,7 +8,7 @@ use Kooriv\MessageBroker\Contract\AMQP;
 
 class PubSub implements ContractPubSub
 {
-	protected string $queueName;
+	protected string $queueName='';
 	protected string $exchangeName='';
 	protected ?ExchangeType $exchangeType=null;
 	protected array $routing_keys=[];

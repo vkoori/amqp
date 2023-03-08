@@ -2,8 +2,6 @@
 
 namespace Kooriv\MessageBroker\Contract;
 
-// use Kooriv\MessageBroker\Enum\ExchangeType;
-
 interface PubSub
 {
 	public function getQueueName(): string;
