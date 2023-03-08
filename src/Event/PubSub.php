@@ -8,33 +8,11 @@ use Kooriv\MessageBroker\Contract\AMQP;
 
 class PubSub implements ContractPubSub
 {
-	private string $queueName;
-	private string $exchangeName='';
-	private ?ExchangeType $exchangeType=null;
-	private array $routing_keys=[];
-	private array $callbacks=[];
-
-	public function queue(
-		string $queueName,
-		string $exchangeName='',
-		?ExchangeType $exchangeType=null,
-		array $routing_keys=[],
-	): self
-	{
-		$this->queueName = $queueName;
-		$this->exchangeName = $exchangeName;
-		$this->exchangeType = $exchangeType;
-		$this->routing_keys = $routing_keys;
-
-		return $this;
-	}
-
-	public function callback(array $callbacks): self
-	{
-		$this->callbacks = $callbacks;
-
-		return $this;
-	}
+	protected string $queueName;
+	protected string $exchangeName='';
+	protected ?ExchangeType $exchangeType=null;
+	protected array $routing_keys=[];
+	protected array $callbacks=[];
 
 	public function getQueueName(): string
 	{
