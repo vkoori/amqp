@@ -133,11 +133,13 @@ class FirstQueue extends PubSub
 ```
 
 > **Note**
-> If you don't need consume this event don't need to set `$callbacks`
+>
+> If you don't need consume this event, don't set `$callbacks`
 
 ## subscribe messages and run them
 
 > **Note**
+>
 > First of all, it is necessary to update `events` key in `config/amqp.php` file and create a class with the same path
 
 ```shell
