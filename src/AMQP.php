@@ -14,7 +14,9 @@ class AMQP extends Manager
 
 	public function getDefaultDriver(): string
 	{
-		app()->configure('amqp');
+		if (get_class(object: app()) == 'Laravel\Lumen\Application') {
+			app()->configure('amqp');
+		}
 		return $this->config->get('amqp.driver');
 	}
 
