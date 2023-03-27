@@ -7,6 +7,7 @@ use Kooriv\MessageBroker\Contract\MainJob;
 use Kooriv\MessageBroker\Contract\AMQP;
 use Kooriv\MessageBroker\Contract\JobHandler;
 use Illuminate\Support\Facades\Log;
+use Kooriv\MessageBroker\Queue\FailedJobs;
 use Throwable;
 
 abstract class Job implements AbstractJob, MainJob
@@ -37,7 +38,7 @@ abstract class Job implements AbstractJob, MainJob
 					queueName: $failed_jobs['queueName'] ?? env(key:'APP_NAME', default: 'amqp') . '_failed_job',
 					exchangeName: $failed_jobs['exchangeName'],
 					exchangeType: empty($failed_jobs['exchangeType'])
-						? ''
+						? null
 						: $this->getAMQP()->exchangeType(type: $failed_jobs['exchangeType']),
 					routing_keys: $failed_jobs['routing_keys'] ?? []
 				);
@@ -49,7 +50,7 @@ abstract class Job implements AbstractJob, MainJob
 		Throwable $e,
 		string $queueName,
 		string $exchangeName='',
-		string $exchangeType='',
+		?\Kooriv\MessageBroker\Enum\ExchangeType $exchangeType=null,
 		array $routing_keys=[]
 	)
 	{
@@ -61,10 +62,12 @@ abstract class Job implements AbstractJob, MainJob
 				properties: $this->get_properties()
 			)
 			->onQueue(
-				queueName: $queueName,
-				exchangeName: $exchangeName,
-				exchangeType: $exchangeType,
-				routing_keys: $routing_keys
+				queue: new FailedJobs(
+					queueName: $queueName,
+					exchangeName: $exchangeName,
+					exchangeType: $exchangeType,
+					routing_keys: $routing_keys
+				)
 			);
 	}
 

@@ -12,7 +12,7 @@ interface AbstractJob
 		\Throwable $e,
 		string $queueName,
 		string $exchangeName='',
-		string $exchangeType='',
+		?\Kooriv\MessageBroker\Enum\ExchangeType $exchangeType=null,
 		array $routing_keys=[]
 	);
 }
