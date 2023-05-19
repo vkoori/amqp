@@ -44,7 +44,7 @@ use Kooriv\MessageBroker\Enum\ExchangeType;
 
 return [
 
-    'driver' => env('AMQP_DRIVER', 'sync'),
+    'driver' => env('AMQP_DRIVER', 'rabbitMQ'),
     'events' => Consumers::class,
 
     'rabbitMQ' => [

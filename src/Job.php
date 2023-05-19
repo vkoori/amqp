@@ -37,9 +37,7 @@ abstract class Job implements AbstractJob, MainJob
 					e: $e,
 					queueName: $failed_jobs['queueName'] ?? env(key:'APP_NAME', default: 'amqp') . '_failed_job',
 					exchangeName: $failed_jobs['exchangeName'],
-					exchangeType: empty($failed_jobs['exchangeType'])
-						? null
-						: $this->getAMQP()->exchangeType(type: $failed_jobs['exchangeType']),
+					exchangeType: $failed_jobs['exchangeType'] ?? null,
 					routing_keys: $failed_jobs['routing_keys'] ?? []
 				);
 			}
